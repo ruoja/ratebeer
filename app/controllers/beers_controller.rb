@@ -15,10 +15,14 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
   end
 
   # GET /beers/1/edit
   def edit
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
   end
 
   # POST /beers
@@ -28,7 +32,7 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to @beer, notice: 'Beer was successfully created.' }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class BeersController < ApplicationController
   def update
     respond_to do |format|
       if @beer.update(beer_params)
-        format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
         format.html { render :edit }
@@ -71,4 +75,5 @@ class BeersController < ApplicationController
     def beer_params
       params.require(:beer).permit(:name, :style, :brewery_id)
     end
+
 end
