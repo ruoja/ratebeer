@@ -7,9 +7,9 @@
 <h2>Members</h2>
 
 <ul>
-	<% @beer_club.memberships.each do |membership| %>
+	<% @beer_club.members.each do |member| %>
 		<li>
-			<%= link_to membership.user.username, user_path(membership.user) %>
+			<%= link_to member.username, user_path(member) %>
 		</li>
 	<% end %>
 </ul>	 

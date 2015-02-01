@@ -19,7 +19,7 @@
         <td><%= beer_club.name %></td>
         <td><%= beer_club.founded %></td>
         <td><%= beer_club.city %></td>
-        <td><%= beer_club.memberships.count %></td>
+        <td><%= beer_club.members.count %></td>
         <td><%= link_to 'Show', beer_club %></td>
         <td><%= link_to 'Edit', edit_beer_club_path(beer_club) %></td>
         <td><%= link_to 'Destroy', beer_club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
