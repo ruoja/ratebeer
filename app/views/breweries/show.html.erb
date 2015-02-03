@@ -26,4 +26,9 @@
 	<% end %>
 </p>  
 
-<%= link_to 'Edit', edit_brewery_path(@brewery) %>
+<% if current_user %>
+  <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
+  <%= link_to 'Destroy', brewery_path(@brewery), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
+<%= link_to 'Back', breweries_path %>
+

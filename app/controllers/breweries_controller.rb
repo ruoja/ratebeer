@@ -28,7 +28,9 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
-      if @brewery.save
+      if current_user.nil?
+        redirect_to signin_path, notice: 'you must be signed in to add breweries'
+      elsif @brewery.save
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
         format.json { render :show, status: :created, location: @brewery }
       else

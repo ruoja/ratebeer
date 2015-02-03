@@ -13,7 +13,7 @@ class Membership < ActiveRecord::Base
 		user.memberships.each do |m| 
 			if m.beer_club.id == self.beer_club_id
 				false
-				errors.add(:beer_club_id, "you are already a member")
+				errors.add(:beer_club_id, "already has you as a member")
 			end
 		end
 	end		

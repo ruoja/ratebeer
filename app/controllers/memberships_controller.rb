@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_beer_clubs_for_template, only: [:new, :edit]
 
   # GET /memberships
   # GET /memberships.json
@@ -15,7 +16,6 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.all
   end
 
   # GET /memberships/1/edit
@@ -28,11 +28,13 @@ class MembershipsController < ApplicationController
     @membership = Membership.new(membership_params)
 
     respond_to do |format|
-      if @membership.save
+      if current_user.nil?
+        redirect_to signin_path, notice: 'you must be signed in to join a club'
+      elsif @membership.save
         format.html { redirect_to beer_club_path(@membership.beer_club), notice: 'Membership was successfully created.' }
         format.json { render :new, status: :created, location: @membership }
       else
-        @beer_clubs = BeerClub.all
+        set_beer_clubs_for_template
         format.html { render :new }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
@@ -73,4 +75,8 @@ class MembershipsController < ApplicationController
     def membership_params
       params.require(:membership).permit(:beer_club_id, :user_id)
     end
+
+    def set_beer_clubs_for_template
+      @beer_clubs = BeerClub.all
+    end  
 end

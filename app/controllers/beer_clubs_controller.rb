@@ -27,7 +27,9 @@ class BeerClubsController < ApplicationController
     @beer_club = BeerClub.new(beer_club_params)
 
     respond_to do |format|
-      if @beer_club.save
+      if current_user.nil?
+        redirect_to signin_path, notice: 'you must be signed in to add beer clubs'
+      elsif @beer_club.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else
