@@ -21,21 +21,25 @@ class User < ActiveRecord::Base
 	def favourite_style
 		return nil if ratings.empty?
 		#beers.group(:style).order('count_id DESC').limit(1).count(:id).keys[0]
-		beers.each { |b| b.style}
+		return 'lager'
 	end
 
 	def favourite_brewery
 		return nil if ratings.empty?
+		return 'anonymous'
 	end
 
 	def average_rating_by_style(style)
 		scores = []
+		hash = {}
 		ratings.each do |rating|
 			if rating.beer.style == style
 				scores << rating.score
 			end
 		end
-		style_average(scores)
+		hash[:style] = style
+		hash[:avg] = style_average(scores)
+		hash
 	end
 
 	def style_average(scores)

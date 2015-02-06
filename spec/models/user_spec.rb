@@ -80,13 +80,28 @@ RSpec.describe User, :type => :model do
     end
 
     it "is the style of only rated beer if there's only one rating" do
-      #create_beer_with_rating(20, user)
-
-      #expect(user.favourite_style).to eq('lager')
+      create_beer_with_rating(20, user)
+      expect(user.favourite_style).to eq('lager')
     end
 
     it "is the style with highest average rating if there's many ratings" do
     end  
     
   end
+
+  describe "favourite_brewery" do
+    let(:user){ FactoryGirl.create(:user) }
+
+    it "can be determined" do
+      expect(user).to respond_to(:favourite_brewery)
+    end
+
+    it "is the brewery of only rated beer if there's only one rating" do
+      create_beer_with_rating(20, user)
+      expect(user.favourite_brewery).to eq('anonymous')
+    end
+
+    it "is the brewery whose beers have the highest average rating if there's many ratings" do
+    end
+  end      
 end

@@ -61,6 +61,20 @@ describe "User" do
 			}.to change{ user.ratings.count }.from(5).to(4)	
 		end
 
+		it "has favourite style shown on the page" do
+			create_beers_with_ratings(10, 15, 20, user)
+			visit user_path(user)
+
+			expect(page).to have_content 'favourite style: lager'
+		end
+
+		it "has favourite brewery shown on the page" do
+			create_beers_with_ratings(10, 15, 20, user)
+			visit user_path(user)
+
+			expect(page).to have_content 'favourite brewery: anonymous'
+		end
+
 	end
 end
 

@@ -9,6 +9,12 @@
 		Has no ratings yet
 	<% end %>	
 </p>
+<p>	
+	<% unless @user.ratings.empty? %>
+		favourite style: <%= @user.favourite_style %><br>
+		favourite brewery: <%= @user.favourite_brewery %>
+	<% end %>	
+</p>
 
 <p>
 	<% unless @user.memberships.empty? %>
