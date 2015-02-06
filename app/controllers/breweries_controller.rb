@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate , only: [:destroy] 
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /breweries
   # GET /breweries.json
@@ -28,9 +28,7 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
-      if current_user.nil?
-        format.html { redirect_to signin_path, notice: 'you must be signed in to add breweries' }
-      elsif @brewery.save
+      if @brewery.save
         format.html { redirect_to @brewery, notice: 'Brewery was successfully created.' }
         format.json { render :show, status: :created, location: @brewery }
       else
@@ -74,12 +72,4 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :year)
     end
-
-    def authenticate
-      admin_accounts = { "admin" => "secret", "pekka" => "beer", "arto" => "foobar", "matti" => "ittam"}
-
-      authenticate_or_request_with_http_basic do |username, password|
-        username and password == admin_accounts[username]
-      end  
-    end  
 end

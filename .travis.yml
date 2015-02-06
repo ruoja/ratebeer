@@ -1,10 +1,16 @@
 language: ruby
-
 rvm:
- - 2.0.0
-
+- 2.0.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: opOr/80Kve0rfE88wrEgfHyVA0M1wODqEcTF6Mcvyb7BxuIYQgSXL8FOsNCx/WBjNQwndiQerv6Cjvg7t8DkgFGMsOKuw2RQ7RkN6aCd7b0XEs4OlRIxJPMgHnFvwhdjGx3b6dI0sd5uTbi9et/RtZJ+wdMEOikNgAcXnwfKFHw=
+  run: "rake db:migrate"  
+  app: floating-chamber-6160
+  on:
+    repo: ruoja/ratebeer

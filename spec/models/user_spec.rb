@@ -31,8 +31,7 @@ RSpec.describe User, :type => :model do
   end
 
   describe "with proper password" do
-
-  	let(:user){ FactoryGirl.create(:user) }
+    let(:user){ FactoryGirl.create(:user) }
 
   	it "is saved" do
   		expect(user).to be_valid
@@ -49,7 +48,6 @@ RSpec.describe User, :type => :model do
   end
 
   describe "favourite_beer" do
-
     let(:user){ FactoryGirl.create(:user) }
 
     it "can be determined" do
@@ -72,5 +70,23 @@ RSpec.describe User, :type => :model do
       
       expect(user.favourite_beer).to eq(best)
     end
+  end
+
+  describe "favourite_style" do
+    let(:user){ FactoryGirl.create(:user) }
+
+    it "can be determined" do
+      expect(user).to respond_to(:favourite_style)
+    end
+
+    it "is the style of only rated beer if there's only one rating" do
+      #create_beer_with_rating(20, user)
+
+      #expect(user.favourite_style).to eq('lager')
+    end
+
+    it "is the style with highest average rating if there's many ratings" do
+    end  
+    
   end
 end

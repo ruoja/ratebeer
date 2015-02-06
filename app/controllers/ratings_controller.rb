@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
 	before_action :set_beers_for_template, only: [:new]
+	before_action :ensure_that_signed_in, except: [:index, :show]
 
 		def index
 		@ratings = Rating.all
@@ -12,9 +13,7 @@ class RatingsController < ApplicationController
 	def create
 		@rating = Rating.new params.require(:rating).permit(:score, :beer_id)
 		
-		if current_user.nil?
-			redirect_to signin_path, notice:'you must be signed in to rate a beer'
-		elsif @rating.save
+		if @rating.save
 			current_user.ratings << @rating
 			redirect_to current_user
 		else

@@ -1,5 +1,6 @@
 class BeerClubsController < ApplicationController
   before_action :set_beer_club, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /beer_clubs
   # GET /beer_clubs.json
@@ -27,9 +28,7 @@ class BeerClubsController < ApplicationController
     @beer_club = BeerClub.new(beer_club_params)
 
     respond_to do |format|
-      if current_user.nil?
-        redirect_to signin_path, notice: 'you must be signed in to add beer clubs'
-      elsif @beer_club.save
+      if @beer_club.save
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else
