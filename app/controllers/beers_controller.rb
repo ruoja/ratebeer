@@ -26,10 +26,10 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
+
     respond_to do |format|
-      
       if current_user.nil?
-        redirect_to signin_path, notice: 'you must be signed in to add beers'
+        format.html { redirect_to signin_path, notice: 'you must be signed in to add beers' }
       elsif @beer.save
         format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }

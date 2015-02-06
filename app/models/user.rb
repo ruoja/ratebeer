@@ -13,4 +13,9 @@ class User < ActiveRecord::Base
 											 format: { with: /(?=.*[A-Z])(?=.*[0-9])/,
 											 message: "must contain at least one number and one capital letter" }											 
 
+	def favourite_beer
+		return nil if ratings.empty?
+		ratings.order(score: :desc).limit(1).first.beer
 	end
+
+end
