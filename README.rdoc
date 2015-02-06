@@ -1,3 +1,5 @@
 == README
 
 https://floating-chamber-6160.herokuapp.com/breweries
+
+[![Code Climate](https://codeclimate.com/github/ruoja/ratebeer/badges/gpa.svg)](https://codeclimate.com/github/ruoja/ratebeer)
