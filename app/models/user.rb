@@ -20,34 +20,58 @@ class User < ActiveRecord::Base
 
 	def favourite_style
 		return nil if ratings.empty?
-		#beers.group(:style).order('count_id DESC').limit(1).count(:id).keys[0]
-		return 'lager'
+		style = ''
+		avg = 0
+		ratings.each do |rating|
+			styleAvg = average_rating_by_style(rating.beer.style)
+			unless avg > styleAvg
+				avg = styleAvg
+				style = rating.beer.style
+			end
+		end
+		style
 	end
 
 	def favourite_brewery
 		return nil if ratings.empty?
-		return 'anonymous'
+		brewery = ''
+		avg = 0
+		ratings.each do |rating|
+			breweryAvg = average_rating_by_brewery(rating.beer.brewery.name)
+			unless avg > breweryAvg
+				avg = breweryAvg
+				brewery = rating.beer.brewery.name
+			end
+		end
+		brewery
 	end
 
 	def average_rating_by_style(style)
 		scores = []
-		hash = {}
 		ratings.each do |rating|
 			if rating.beer.style == style
 				scores << rating.score
 			end
 		end
-		hash[:style] = style
-		hash[:avg] = style_average(scores)
-		hash
+		average_score(scores)
 	end
 
-	def style_average(scores)
+	def average_score(scores)
 		if scores.empty?
 			return 0
 		else
 			(scores.sum / scores.length).round(2)
 		end
+	end
+
+	def average_rating_by_brewery(brewery)
+		scores = []
+		ratings.each do |rating|
+			if rating.beer.brewery.name == brewery
+				scores << rating.score
+			end
+		end
+		average_score(scores)
 	end
 	
 end

@@ -7,11 +7,7 @@ module RatingAverage
 	end
 
 	def styles
-		s = Set.new
-		beers.each do |b| 
-			s.add(b.style)  
-		end
-		s
+		ratings.map { |r| r.beer.style }.to_set
 	end
 
 end

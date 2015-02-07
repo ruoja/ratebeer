@@ -18,10 +18,21 @@ FactoryGirl.define do
 		year 1900
 	end
 
+	factory :brewery2, class: Brewery do
+		name "panimo"
+		year 1950
+	end
+
 	factory :beer do
 		name "bisse"
 		brewery
 		style"lager"
+	end
+
+	factory :beer2, class: Beer do
+		name "kalja"
+		brewery2
+		style"ale"
 	end
 
 	factory :beer_club do
