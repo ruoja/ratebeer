@@ -19,59 +19,51 @@ class User < ActiveRecord::Base
 	end
 
 	def favourite_style
-		return nil if ratings.empty?
-		style = ''
-		avg = 0
-		ratings.each do |rating|
-			styleAvg = average_rating_by_style(rating.beer.style)
-			unless avg > styleAvg
-				avg = styleAvg
-				style = rating.beer.style
-			end
-		end
-		style
+		favStyle = nil
+		max = 0
+    styles_with_ratings.each do |style|
+      avg = avg_rating(ratings_by_style(style))
+      if max < avg
+        max = avg
+        favStyle = style
+      end
+    end
+    favStyle
 	end
 
 	def favourite_brewery
-		return nil if ratings.empty?
-		brewery = ''
-		avg = 0
-		ratings.each do |rating|
-			breweryAvg = average_rating_by_brewery(rating.beer.brewery.name)
-			unless avg > breweryAvg
-				avg = breweryAvg
-				brewery = rating.beer.brewery.name
+		favBrewery = nil
+		max = 0
+		breweries_with_ratings.each do |brewery_id|
+			avg = avg_rating(ratings_by_brewery(brewery_id))
+			if max < avg
+				max = avg
+				favBrewery = Brewery.find brewery_id
 			end
 		end
-		brewery
+		favBrewery
 	end
 
-	def average_rating_by_style(style)
-		scores = []
-		ratings.each do |rating|
-			if rating.beer.style == style
-				scores << rating.score
-			end
-		end
-		average_score(scores)
-	end
+	private
+  	def ratings_by_style(style)
+    	ratings.joins(:beer).where("beers.style = ?", style)
+  	end
 
-	def average_score(scores)
-		if scores.empty?
-			return 0
-		else
-			(scores.sum / scores.length).round(2)
-		end
-	end
+  	def ratings_by_brewery(brewery_id)
+    	ratings.joins(:beer).where("beers.brewery_id = ?", brewery_id)
+  	end
 
-	def average_rating_by_brewery(brewery)
-		scores = []
-		ratings.each do |rating|
-			if rating.beer.brewery.name == brewery
-				scores << rating.score
-			end
-		end
-		average_score(scores)
-	end
-	
+  	def avg_rating(ratings)
+  		return 0 if ratings.empty?
+    	(ratings.map { |rating| rating.score }.sum / ratings.count).round(2)
+  	end
+
+  	def styles_with_ratings
+    	beers.select(:style).distinct.map { |beer| beer.style }
+  	end
+
+  	def breweries_with_ratings
+    	beers.select(:brewery_id).distinct.map { |beer| beer.brewery_id } 
+  	end
+  
 end
