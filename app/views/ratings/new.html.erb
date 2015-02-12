@@ -13,7 +13,7 @@
 		</div>
 	<% end %>
 		
-	<%= f.select :beer_id, options_from_collection_for_select(@beers, :id, :name)%>
+	<%= f.select :beer_id, options_from_collection_for_select(@beers, :id, :name, selected: @rating.beer_id)%>
 	score: <%= f.number_field :score %>
 
 	<%= f.submit %>

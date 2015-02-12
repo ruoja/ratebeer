@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :beers
   resources :breweries
   resources :ratings, only: [:index, :new, :create, :destroy]
+  resources :places, only: [:index, :show]
   resource :session, only: [:new, :create, :delete]
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+  post 'places', to: 'places#search'
+  delete 'memberships', to: 'memberships#destroy'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

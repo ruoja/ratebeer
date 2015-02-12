@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_membership, only: [:show, :edit, :update]
   before_action :set_beer_clubs_for_template, only: [:new, :edit]
+  before_action :set_membership_to_delete, only: [:destroy]
 
   # GET /memberships
   # GET /memberships.json
@@ -31,7 +32,7 @@ class MembershipsController < ApplicationController
       if current_user.nil?
         redirect_to signin_path, notice: 'you must be signed in to join a club'
       elsif @membership.save
-        format.html { redirect_to beer_club_path(@membership.beer_club), notice: 'Membership was successfully created.' }
+        format.html { redirect_to beer_club_path(@membership.beer_club), notice: "#{current_user.username}, welcome to the club!" }
         format.json { render :new, status: :created, location: @membership }
       else
         set_beer_clubs_for_template
@@ -60,7 +61,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to user_path(current_user), notice: "Your membership in #{@beer_club} was ended." }
       format.json { head :no_content }
     end
   end
@@ -78,5 +79,10 @@ class MembershipsController < ApplicationController
 
     def set_beer_clubs_for_template
       @beer_clubs = BeerClub.all
+    end
+
+    def set_membership_to_delete
+      @membership = Membership.find_by(:beer_club_id => params[:membership][:beer_club_id], :user_id => current_user.id)
+      @beer_club = BeerClub.find(params[:membership][:beer_club_id])
     end  
 end

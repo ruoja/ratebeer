@@ -17,3 +17,6 @@
 /tmp
 
 /.idea/*
+
+# Ignore apikey
+/.apikey

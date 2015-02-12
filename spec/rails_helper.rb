@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rspec'
+require 'webmock/rspec'
 require 'simplecov'
 SimpleCov.start('rails')
 # Requires supporting ruby files with custom matchers and macros, etc, in

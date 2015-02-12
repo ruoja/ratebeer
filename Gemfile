@@ -31,6 +31,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'httparty'
+
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
@@ -38,6 +40,7 @@ group :test do
   gem 'rspec-its'
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
+  gem 'webmock'
 end
 
 group :development, :test do
