@@ -1,6 +1,124 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/jani/Documents/code/wadror/ratebeer/app/models/rating.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        36,
+        null,
+        null,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/models/brewery.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        60,
+        0,
+        60,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/models/concerns/rating_average.rb": [
+        1,
+        1,
+        null,
+        1,
+        10,
+        44,
+        null,
+        null,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/models/beer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        8,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        null,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/models/style.rb": [
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/beer_clubs_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/beers_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/breweries_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/memberships_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/styles_helper.rb": [
+        1,
+        null
+      ],
+      "/home/jani/Documents/code/wadror/ratebeer/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
       "/home/jani/Documents/code/wadror/ratebeer/app/controllers/styles_controller.rb": [
         1,
         1,
@@ -585,6 +703,6 @@
         null
       ]
     },
-    "timestamp": 1423945078
+    "timestamp": 1423945714
   }
 }
