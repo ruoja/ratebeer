@@ -21,11 +21,11 @@ class User < ActiveRecord::Base
 	def favourite_style
 		favStyle = nil
 		max = 0
-    styles_with_ratings.each do |style|
-      avg = avg_rating(ratings_by_style(style))
+    styles_with_ratings.each do |style_id|
+      avg = avg_rating(ratings_by_style(style_id))
       if max < avg
         max = avg
-        favStyle = style
+        favStyle = Style.find style_id
       end
     end
     favStyle
@@ -45,8 +45,8 @@ class User < ActiveRecord::Base
 	end
 
 	private
-  	def ratings_by_style(style)
-    	ratings.joins(:beer).where("beers.style = ?", style)
+  	def ratings_by_style(style_id)
+    	ratings.joins(:beer).where("beers.style_id = ?", style_id)
   	end
 
   	def ratings_by_brewery(brewery_id)
@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
   	end
 
   	def styles_with_ratings
-    	beers.select(:style).distinct.map { |beer| beer.style }
+    	beers.select(:style_id).distinct.map { |beer| beer.style_id }
+    	#Style.all
   	end
 
   	def breweries_with_ratings

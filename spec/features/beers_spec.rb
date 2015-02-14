@@ -2,6 +2,7 @@ require 'rails_helper'
 include OwnTestHelper
 
 describe "Beer" do
+	let!(:style) { FactoryGirl.create :style }
 	let!(:brewery) { FactoryGirl.create :brewery }
 	let!(:user) { FactoryGirl.create :user }
 
@@ -12,7 +13,7 @@ describe "Beer" do
 	it "is added to the system with nonempty name" do
 		visit new_beer_path
 		fill_in('beer[name]', with:'bisse')
-		select('Lager', from:'beer[style]')
+		select('lager', from:'beer[style_id]')
 		select('anonymous', from:'beer[brewery_id]')
 
 		expect{ 
@@ -26,7 +27,7 @@ describe "Beer" do
 	it "is not added to the system with empty name" do
 		visit new_beer_path
 		fill_in('beer[name]', with:'')
-		select('Lager', from:'beer[style]')
+		select('lager', from:'beer[style_id]')
 		select('anonymous', from:'beer[brewery_id]')
 
 		click_button "Create Beer"

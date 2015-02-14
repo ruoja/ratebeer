@@ -81,19 +81,20 @@ RSpec.describe User, :type => :model do
 
     it "is the style of only rated beer if there's only one rating" do
       create_beer_with_rating(20, user)
-      expect(user.favourite_style).to eq('lager')
+      expect(user.favourite_style.name).to eq('lager')
     end
 
     it "is the style with highest average rating if there's many ratings" do
+      style = Style.create name:"IPA", description:""
       beer1 = create_beer_with_rating(5, user)
       FactoryGirl.create(:rating, score:32, beer:beer1, user:user)
       FactoryGirl.create(:rating, score:3, beer:beer1, user:user)
-      beer2 = FactoryGirl.create(:beer, style:"IPA")
+      beer2 = FactoryGirl.create(:beer, style:style)
       FactoryGirl.create(:rating, score:10, beer:beer2, user:user)
       FactoryGirl.create(:rating, score:20, beer:beer2, user:user)
       FactoryGirl.create(:rating, score:30, beer:beer2, user:user)
 
-      expect(user.favourite_style).to eq('IPA')
+      expect(user.favourite_style.name).to eq('IPA')
     end  
     
   end

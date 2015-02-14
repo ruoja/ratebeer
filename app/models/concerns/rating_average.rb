@@ -6,8 +6,4 @@ module RatingAverage
 		(ratings.map { |r| r.score }.sum / ratings.count.to_f).round(2)
 	end
 
-	def styles
-		ratings.map { |r| r.beer.style }.to_set
-	end
-
 end

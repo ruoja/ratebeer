@@ -26,19 +26,29 @@ FactoryGirl.define do
 	factory :beer do
 		name "bisse"
 		brewery
-		style"lager"
+		style
 	end
 
 	factory :beer2, class: Beer do
 		name "kalja"
 		brewery2
-		style"ale"
+		style2
 	end
 
 	factory :beer_club do
 		name "kerho"
 		founded 2000
 		city "gotham"
+	end
+
+	factory :style do
+		name "lager"
+		description "some descriptive text"
+	end
+
+	factory :style2, class: Style do
+		name "ale"
+		description "some descriptive text"
 	end
 
 end
