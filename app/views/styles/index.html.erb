@@ -2,7 +2,7 @@
 
 <h1>Listing Styles</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Beer style</th>
@@ -13,8 +13,7 @@
   <tbody>
     <% @styles.each do |style| %>
       <tr>
-        <td><%= style.name %></td>
-        <td><%= link_to 'Show', style %></td>
+        <td><%= link_to style.name, style %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +21,4 @@
 
 <br>
 
-<%= link_to 'New Style', new_style_path %>
+<%= link_to 'New Style', new_style_path, class:'btn btn-primary' %>

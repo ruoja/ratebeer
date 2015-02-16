@@ -32,6 +32,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'httparty'
+gem 'bootstrap-sass'
+
+group :development do
+  gem 'rails_layout'
+end
 
 group :test do
   gem 'factory_girl_rails'

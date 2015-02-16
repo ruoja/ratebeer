@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Ratebeer</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<div class="navibar">
-		<%= link_to 'breweries', breweries_path %>
-		<%= link_to 'beers', beers_path %>
-		<%= link_to 'styles', styles_path %>
-		<%= link_to 'ratings', ratings_path %>
-		<%= link_to 'users', users_path %>
-		<%= link_to 'clubs', beer_clubs_path %>
-		<%= link_to 'places', places_path %> |
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Ratebeer" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Ratebeer" %>">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main" class=".container">
+       <%= render 'layouts/messages' %>
 
-		<% if current_user.nil? %>
-			<%= link_to 'signup', new_user_path %>
-			<%= link_to 'signin', new_session_path %>
-		<% else %>
-			<%= link_to current_user.username, user_path(current_user.id) %>
-			<%= link_to 'rate a beer', new_rating_path %>
-			<%= link_to 'join a club', new_membership_path %>
-			<%= link_to 'signout', signout_path, method: :delete %>
-		<% end %>
-	</div>	
-
-<%= yield %>
-
-</body>
+       <div class="row">
+          <div class="col-md-8">
+            <%= yield %>
+          </div>
+          <div class="col-md-4">
+            <img src="http://media-cache-ak0.pinimg.com/736x/83/1b/dd/831bdd32f6bc3de793c81b852058df22.jpg" width="200" class="img-rounded">
+          </div>
+        </div>
+              
+    </main>
+  </body>
 </html>
