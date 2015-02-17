@@ -8,6 +8,9 @@ class Brewery < ActiveRecord::Base
 	validates :year, numericality: { greater_than_or_equal_to: 1042 }
 	validate :brewery_cannot_be_found_in_the_future, on: :create
 
+	scope :active, -> { where active:true }
+	scope :retired, -> { where active:[false, nil] }
+
 	def print_report
 		puts self.name
 		puts "established at year #{self.year}"
@@ -19,6 +22,10 @@ class Brewery < ActiveRecord::Base
 		puts "changed year to #{year}"
 	end
 
+	def to_s
+		"#{self.name}"
+	end	
+
 	def brewery_cannot_be_found_in_the_future
 		if year.nil?
 			false
@@ -26,5 +33,11 @@ class Brewery < ActiveRecord::Base
 			errors.add(:year, "can't be in the future")	
 		end
 	end
+
+	def self.top(n)
+		last = n - 1
+   	sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
+   	sorted_by_rating_in_desc_order[0..last]
+ end
 
 end

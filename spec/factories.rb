@@ -16,11 +16,13 @@ FactoryGirl.define do
 	factory :brewery do
 		name "anonymous"
 		year 1900
+		active true
 	end
 
 	factory :brewery2, class: Brewery do
 		name "panimo"
 		year 1950
+		active true
 	end
 
 	factory :beer do

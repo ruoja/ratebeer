@@ -29,7 +29,9 @@ describe "Rating" do
 		create_ratings(10, 15, 20, 25, 30, user)
 		visit ratings_path
 
-		expect(page).to have_content 'Number of ratings: 5'
-		expect(page).to have_content 'bisse 10 Pekka'
+		expect(page).to have_content 'Total number of ratings: 5'
+		expect(page).to have_content 'bisse'
+		expect(page).to have_content '10'
+		expect(page).to have_content 'Pekka'
 	end
 end	

@@ -44,6 +44,12 @@ class User < ActiveRecord::Base
 		favBrewery
 	end
 
+	def self.most_active(n)
+		last = n - 1
+   	sorted_by_rating_count_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count||0) }
+   	sorted_by_rating_count_in_desc_order[0..last]
+ end
+
 	private
   	def ratings_by_style(style_id)
     	ratings.joins(:beer).where("beers.style_id = ?", style_id)
@@ -60,7 +66,6 @@ class User < ActiveRecord::Base
 
   	def styles_with_ratings
     	beers.select(:style_id).distinct.map { |beer| beer.style_id }
-    	#Style.all
   	end
 
   	def breweries_with_ratings
