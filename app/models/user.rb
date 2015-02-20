@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
 
   	def avg_rating(ratings)
   		return 0 if ratings.empty?
-    	(ratings.map { |rating| rating.score }.sum / ratings.count).round(2)
+    	ratings.map { |rating| rating.score }.sum / ratings.count
   	end
 
   	def styles_with_ratings

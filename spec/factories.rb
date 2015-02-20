@@ -1,4 +1,5 @@
 FactoryGirl.define do
+
 	factory :user do
 		username "Pekka"
 		password "Foobar1"
@@ -22,7 +23,6 @@ FactoryGirl.define do
 	factory :brewery2, class: Brewery do
 		name "panimo"
 		year 1950
-		active true
 	end
 
 	factory :beer do

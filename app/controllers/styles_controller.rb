@@ -1,5 +1,8 @@
 class StylesController < ApplicationController
   before_action :set_style, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :check_admin_rights, only: [:destroy]
+
 
   # GET /styles
   # GET /styles.json
@@ -71,4 +74,5 @@ class StylesController < ApplicationController
     def style_params
       params.require(:style).permit(:name, :description)
     end
+
 end

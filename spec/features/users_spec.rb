@@ -19,7 +19,7 @@ describe "User" do
 		user1 = create_user_with_ratings(1, 2, 3, 4, 5, 6, 7, "Tupu")
 		user2 = create_user_with_ratings(10, 20, 30, 40, 50, "Hupu")
 		user3 = create_user_with_ratings(11, 22, 33, "Lupu")
-			
+
 		visit user_path(user1)
 		expect(page).to have_content 'Has 7 ratings, average: 4.0'
 		expect(page).to have_content 'no beer club memberships'
