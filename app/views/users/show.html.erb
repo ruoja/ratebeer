@@ -4,7 +4,7 @@
         <% if @user.banned && current_user.admin %>
             <span class="label label-info">frozen account</span>
             <%= link_to "reactivate", ban_account_user_path(@user.id), method: :post, class: "btn btn-warning" %>
-        <% elsif current_user.admin %>
+        <% elsif current_user.admin && (not(@user == current_user)) %>
             <%= link_to "freeze account", ban_account_user_path(@user.id), method: :post, class: "btn btn-warning" %>
         <% end %>
     <% end %>

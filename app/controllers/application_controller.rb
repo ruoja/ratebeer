@@ -18,4 +18,10 @@ class ApplicationController < ActionController::Base
     redirect_to :back, notice:'you need admin rights to perform this operation' if current_user.admin == false
   end
 
+  def top(n, category)
+    last = n - 1
+    sorted_by_rating_in_desc_order = category.all.sort_by{ |item| -(item.average_rating||0) }
+    sorted_by_rating_in_desc_order[0..last]
+  end
+
 end

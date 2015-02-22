@@ -34,10 +34,4 @@ class Brewery < ActiveRecord::Base
 		end
 	end
 
-	def self.top(n)
-		last = n - 1
-   	sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0) }
-   	sorted_by_rating_in_desc_order[0..last]
- end
-
 end
