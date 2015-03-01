@@ -1,2 +1,0 @@
-      invoke  active_record
-      create    db/migrate/20150220125701_add_banned_to_users.rb

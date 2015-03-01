@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   delete 'signout', to: 'sessions#destroy'
   post 'places', to: 'places#search'
   delete 'memberships', to: 'memberships#destroy'
+  get 'beerlist', to: 'beers#list'
+  get 'ngbeerlist', to: 'beers#nglist'
+  get 'brewerylist', to: 'breweries#list'
+
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

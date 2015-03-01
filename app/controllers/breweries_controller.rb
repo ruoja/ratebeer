@@ -1,13 +1,20 @@
 class BreweriesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :check_admin_rights, only:[:destroy]
+  before_action :skip_if_cached, only: [:index]
 
   # GET /breweries
   # GET /breweries.json
   def index
-    @active_breweries = Brewery.active
-    @retired_breweries = Brewery.retired
+    @all_breweries = Brewery.all
+    @active_breweries = Brewery.active.order(sort_column + ' ' + sort_direction)
+    @retired_breweries = Brewery.retired.order(sort_column + ' ' + sort_direction)
+  end
+
+  def list
   end
 
   # GET /breweries/1
@@ -27,6 +34,7 @@ class BreweriesController < ApplicationController
   # POST /breweries
   # POST /breweries.json
   def create
+    ["brewerylist-name-asc", "brewerylist-year-asc", "brewerylist-name-desc", "brewerylist-year-desc"].each{ |f| expire_fragment(f) }
     @brewery = Brewery.new(brewery_params)
 
     respond_to do |format|
@@ -43,6 +51,7 @@ class BreweriesController < ApplicationController
   # PATCH/PUT /breweries/1
   # PATCH/PUT /breweries/1.json
   def update
+    ["brewerylist-name-asc", "brewerylist-year-asc", "brewerylist-name-desc", "brewerylist-year-desc"].each{ |f| expire_fragment(f) }
     respond_to do |format|
       if @brewery.update(brewery_params)
         format.html { redirect_to @brewery, notice: 'Brewery was successfully updated.' }
@@ -57,6 +66,7 @@ class BreweriesController < ApplicationController
   # DELETE /breweries/1
   # DELETE /breweries/1.json
   def destroy
+    ["brewerylist-name-asc", "brewerylist-year-asc", "brewerylist-name-desc", "brewerylist-year-desc"].each{ |f| expire_fragment(f) }
     @brewery.destroy
     respond_to do |format|
       format.html { redirect_to breweries_url, notice: 'Brewery was successfully destroyed.' }
@@ -81,4 +91,20 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
     end
+
+    def sort_column  
+      Brewery.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end  
+    
+    def sort_direction  
+      %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end 
+
+    def skip_if_cached
+      @col = sort_column
+      @order = sort_direction
+      return render :index if fragment_exist?( "brewerylist-#{@col}-#{@order}" )
+    end
+
+
 end

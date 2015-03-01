@@ -33,6 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'httparty'
 gem 'bootstrap-sass'
+gem 'jquery-turbolinks'
+gem 'rack-mini-profiler'
+gem 'puma'
 
 group :development do
   gem 'rails_layout'
@@ -46,6 +49,9 @@ group :test do
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+  gem 'poltergeist'
 end
 
 group :development, :test do

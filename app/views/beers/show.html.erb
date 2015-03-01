@@ -1,3 +1,5 @@
+<% cache @beer do %>
+
 <h2> <%= @beer %> </h2>
 
 <p>
@@ -12,6 +14,8 @@
 	  Has <%= pluralize(@beer.ratings.count, 'rating') %>, average score <%= round(@beer.average_rating) %>
 	<% end %>  
 </p>
+
+<% end %>
 
 <% if current_user %>
 
