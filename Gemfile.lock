@@ -36,7 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    addressable (2.3.7)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     arel (6.0.0)
     autoprefixer-rails (5.1.7)
       execjs
@@ -128,6 +129,7 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    public_suffix (3.1.1)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
     rack (1.6.0)
